@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VYUHA: EVOLUTION OF BATTLE — KURUKSHETRA</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2713%27 fill=%27%23d4af37%27/%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- Audio Toggle Button -->
+  <button id="btn-audio-toggle" class="audio-toggle-btn"> SOUND: ON</button>
+
+  <!-- ==========================================================
+       SCREEN 1: OPENING / GAME START
+       ========================================================== -->
+  <div id="screen-start" class="game-screen active">
+    <div class="start-header">
+      <div class="start-sub-badge">EVOLUTION OF BATTLE</div>
+      <h1 class="start-title">VYUHA: KURUKSHETRA</h1>
+      <p class="start-theme-quote">"Two Armies • Two Commanders • Two Vyuhas • Two Attack Doctrines • One Total Battle"</p>
+    </div>
+
+    <div class="start-core-pillars">
+      <div class="pillar-box"> FULL MAHABHARATA PANTHEON</div>
+      <div class="pillar-box"> 8 SACRED VYUHAS</div>
+      <div class="pillar-box"> 7 STRATEGIC ATTACK PATTERNS</div>
+      <div class="pillar-box"> VISCERAL COMBAT TO THE LAST WARRIOR</div>
+    </div>
+
+    <button id="btn-start-game" class="btn-grand-gold">START BATTLE</button>
+  </div>
+
+  <!-- ==========================================================
+       SCREEN 2: DUAL ARMY, VYUHA & ATTACK PATTERN SETUP
+       ========================================================== -->
+  <div id="screen-setup" class="game-screen">
+    <div class="panel-header">
+      <h2 class="cinzel">SACRED WAR COUNCIL: DUAL ARMY & VYUHA CONFIGURATION</h2>
+      <span class="cinzel" style="color: var(--gold-primary);">TOTAL WAR SIMULATION</span>
+    </div>
+
+    <div class="setup-grid">
+      <!-- Left Column: Allied Forces Setup -->
+      <div class="setup-panel" style="border: 1px solid var(--gold-primary);">
+        <h3 class="panel-header" style="color: var(--gold-glow);"> 1. ALLIED HOST CONFIGURATION</h3>
+
+        <!-- Commander Selector -->
+        <label style="font-weight: 700; color: var(--gold-primary); margin-bottom: 6px; display: block;">CHOOSE ALLIED COMMANDER</label>
+        <select id="select-player-character" class="input-styled"></select>
+        <div id="player-char-details" class="char-details-box"></div>
+
+        <!-- Attack Pattern Selector -->
+        <label style="font-weight: 700; color: var(--gold-primary); margin-top: 15px; margin-bottom: 6px; display: block;">ALLIED ATTACK PATTERN / STRATEGY</label>
+        <select id="select-player-attack-pattern" class="input-styled"></select>
+        <div id="player-attack-pattern-desc" class="attack-pattern-box"></div>
+
+        <!-- Allied Vyuha Selector -->
+        <label style="font-weight: 700; color: var(--gold-primary); margin-top: 15px; margin-bottom: 6px; display: block;">CHOOSE ALLIED VYUHA (FORMATION)</label>
+        <div class="vyuha-grid">
+          <div class="vyuha-card player-vyuha-card" data-vyuha="padma"><div class="vyuha-card-name">Padma</div><div class="vyuha-card-sub">Lotus Citadel</div></div>
+          <div class="vyuha-card player-vyuha-card selected" data-vyuha="garuda"><div class="vyuha-card-name">Garuda</div><div class="vyuha-card-sub">Eagle Wings</div></div>
+          <div class="vyuha-card player-vyuha-card" data-vyuha="krauncha"><div class="vyuha-card-name">Krauncha</div><div class="vyuha-card-sub">Heron Spear</div></div>
+          <div class="vyuha-card player-vyuha-card" data-vyuha="makara"><div class="vyuha-card-name">Makara</div><div class="vyuha-card-sub">Armored Jaws</div></div>
+          <div class="vyuha-card player-vyuha-card" data-vyuha="shakata"><div class="vyuha-card-name">Shakata</div><div class="vyuha-card-sub">Cart Bastion</div></div>
+          <div class="vyuha-card player-vyuha-card" data-vyuha="kurma"><div class="vyuha-card-name">Kurma</div><div class="vyuha-card-sub">Tortoise Shell</div></div>
+          <div class="vyuha-card player-vyuha-card" data-vyuha="ardhachandra"><div class="vyuha-card-name">Ardhachandra</div><div class="vyuha-card-sub">Crescent Moon</div></div>
+          <div class="vyuha-card player-vyuha-card" data-vyuha="chakravyuha"><div class="vyuha-card-name">Chakravyuha</div><div class="vyuha-card-sub">7 Spiral Rings</div></div>
+        </div>
+
+        <!-- Allied Vyuha 2D Visualizer -->
+        <div class="vyuha-preview-container">
+          <canvas id="canvas-player-vyuha-preview" width="200" height="200"></canvas>
+          <div style="flex: 1; font-size: 0.85rem; color: #ddd;">
+            <strong style="color: var(--gold-glow);">Allied Formation Geometry</strong>
+            <p>Units are placed according to the chosen Vyuha. Wings, Beak, and Heart are calculated mathematically.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Opposition Forces Setup -->
+      <div class="setup-panel" style="border: 1px solid var(--royal-purple);">
+        <h3 class="panel-header" style="color: #e0b0ff;"> 2. OPPOSITION HOST CONFIGURATION</h3>
+
+        <!-- Opponent Commander Selector -->
+        <label style="font-weight: 700; color: #e0b0ff; margin-bottom: 6px; display: block;">CHOOSE OPPOSITION COMMANDER</label>
+        <select id="select-opponent-character" class="input-styled"></select>
+        <div id="opponent-char-details" class="char-details-box"></div>
+
+        <!-- Opponent Attack Pattern Selector -->
+        <label style="font-weight: 700; color: #e0b0ff; margin-top: 15px; margin-bottom: 6px; display: block;">OPPOSITION ATTACK PATTERN / STRATEGY</label>
+        <select id="select-opponent-attack-pattern" class="input-styled"></select>
+        <div id="opponent-attack-pattern-desc" class="attack-pattern-box"></div>
+
+        <!-- Opponent Vyuha Selector -->
+        <label style="font-weight: 700; color: #e0b0ff; margin-top: 15px; margin-bottom: 6px; display: block;">CHOOSE OPPOSITION VYUHA (FORMATION)</label>
+        <div class="vyuha-grid">
+          <div class="vyuha-card opponent-vyuha-card" data-vyuha="padma"><div class="vyuha-card-name">Padma</div><div class="vyuha-card-sub">Lotus Citadel</div></div>
+          <div class="vyuha-card opponent-vyuha-card" data-vyuha="garuda"><div class="vyuha-card-name">Garuda</div><div class="vyuha-card-sub">Eagle Wings</div></div>
+          <div class="vyuha-card opponent-vyuha-card" data-vyuha="krauncha"><div class="vyuha-card-name">Krauncha</div><div class="vyuha-card-sub">Heron Spear</div></div>
+          <div class="vyuha-card opponent-vyuha-card" data-vyuha="makara"><div class="vyuha-card-name">Makara</div><div class="vyuha-card-sub">Armored Jaws</div></div>
+          <div class="vyuha-card opponent-vyuha-card" data-vyuha="shakata"><div class="vyuha-card-name">Shakata</div><div class="vyuha-card-sub">Cart Bastion</div></div>
+          <div class="vyuha-card opponent-vyuha-card" data-vyuha="kurma"><div class="vyuha-card-name">Kurma</div><div class="vyuha-card-sub">Tortoise Shell</div></div>
+          <div class="vyuha-card opponent-vyuha-card selected" data-vyuha="ardhachandra"><div class="vyuha-card-name">Ardhachandra</div><div class="vyuha-card-sub">Crescent Moon</div></div>
+          <div class="vyuha-card opponent-vyuha-card" data-vyuha="chakravyuha"><div class="vyuha-card-name">Chakravyuha</div><div class="vyuha-card-sub">7 Spiral Rings</div></div>
+        </div>
+
+        <!-- Opponent Vyuha 2D Visualizer -->
+        <div class="vyuha-preview-container">
+          <canvas id="canvas-opponent-vyuha-preview" width="200" height="200"></canvas>
+          <div style="flex: 1; font-size: 0.85rem; color: #ddd;">
+            <strong style="color: #e0b0ff;">Opposition Formation Geometry</strong>
+            <p>The opposing army deploys mirrored on the battlefield with their chosen attack pattern.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Army Size & Composition Bar -->
+    <div class="setup-panel" style="margin-top: 15px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <label style="font-weight: 700; color: var(--gold-primary);">ARMY SIZE: <span id="display-army-size" style="color: var(--gold-glow); font-size: 1.2rem;">1000</span> SOLDIERS PER ARMY</label>
+        <span style="font-size: 0.9rem; color: #aaa;">TOTAL ARMY BREAKDOWN: <span id="total-army-counter" style="color: #2ecc71;">1000</span></span>
+      </div>
+      <input type="range" id="slider-army-size" class="slider-styled" min="50" max="5000" step="50" value="1000">
+      <div class="quick-buttons">
+        <button class="btn-mini btn-preset-size" data-size="250">250 (Skirmish)</button>
+        <button class="btn-mini btn-preset-size" data-size="500">500 (Regiment)</button>
+        <button class="btn-mini btn-preset-size" data-size="1000">1000 (Legion)</button>
+        <button class="btn-mini btn-preset-size" data-size="2000">2000 (Grand Host)</button>
+        <button class="btn-mini btn-preset-size" data-size="5000">5000 (Imperial Akshauhini)</button>
+      </div>
+
+      <div id="composition-sliders-container" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px;"></div>
+    </div>
+
+    <div class="setup-footer">
+      <div style="color: var(--text-muted); font-size: 0.95rem;">Both hosts fully customized: Commanders, Vyuhas, and Attack Patterns locked.</div>
+      <button id="btn-lock-setup" class="btn-grand-gold" style="font-size: 1.15rem; padding: 12px 35px;">LOCK FORMATIONS & STRATEGIC BRIEFING →</button>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       SCREEN 3: DUAL STRATEGIC BRIEFING & MATCHUP ANALYSIS
+       ========================================================== -->
+  <div id="screen-briefing" class="game-screen">
+    <div style="text-align: center;">
+      <div class="start-sub-badge">THE STAGE IS SET</div>
+      <h2 class="cinzel" style="font-size: 2.2rem; color: #fff;">THE TWO HOSTS STAND DEPLOYED</h2>
+      <p style="color: var(--gold-primary); font-size: 1.1rem; letter-spacing: 2px;">Only one army shall leave the field of Kurukshetra alive.</p>
+    </div>
+
+    <div class="briefing-split">
+      <!-- Player Profile -->
+      <div class="commander-profile-card player">
+        <img src="assets/player_commander.jpg" alt="Allied Commander" class="avatar-large player">
+        <h3 id="brief-player-name" style="color: var(--gold-glow); font-size: 1.4rem;">ARJUNA</h3>
+        <span id="brief-player-title" style="color: #fff; font-size: 0.9rem; margin-bottom: 12px;">Wielder of Gandiva</span>
+        <div style="width: 100%; border-top: 1px solid var(--border-gold); padding-top: 10px; font-size: 0.95rem; line-height: 1.6;">
+          <p><strong>Army Strength:</strong> <span id="brief-player-size" style="color: var(--gold-glow);">1000 Warriors</span></p>
+          <p><strong>Chosen Vyuha:</strong> <span id="brief-player-vyuha" style="color: #2ecc71;">Garuda Vyuha</span></p>
+          <p><strong>Attack Pattern:</strong> <span id="brief-player-attack" style="color: #f39c12;">Double Flank Envelopment</span></p>
+        </div>
+      </div>
+
+      <!-- Center Matchup Analysis -->
+      <div class="briefing-center-matchup">
+        <h4 class="cinzel" style="color: var(--gold-primary); margin-bottom: 12px;">TACTICAL MATCHUP BRIEFING</h4>
+        <div id="brief-matchup-analysis" class="matchup-quote">
+          Analyzing formation geometry and attack pattern counters...
+        </div>
+        <div style="font-size: 0.9rem; color: #bda78d; border-top: 1px solid rgba(212, 175, 55, 0.2); padding-top: 12px;">
+          <p> The battle runs until the losing army is 100% annihilated.</p>
+          <p> Visceral blood blast particles erupt on every blade slash and arrow puncture.</p>
+        </div>
+      </div>
+
+      <!-- Opponent Profile -->
+      <div class="commander-profile-card bot">
+        <img src="assets/bot_commander.jpg" alt="Opposition Commander" class="avatar-large bot">
+        <h3 id="brief-opponent-name" style="color: #e0b0ff; font-size: 1.4rem;">KARNA</h3>
+        <span id="brief-opponent-title" style="color: #ccc; font-size: 0.9rem; margin-bottom: 12px;">King of Anga</span>
+        <div style="width: 100%; border-top: 1px solid var(--border-gold); padding-top: 10px; font-size: 0.95rem; line-height: 1.6;">
+          <p><strong>Army Strength:</strong> <span id="brief-opponent-size" style="color: #e0b0ff;">1000 Warriors</span></p>
+          <p><strong>Chosen Vyuha:</strong> <span id="brief-opponent-vyuha" style="color: #e74c3c;">Ardhachandra Vyuha</span></p>
+          <p><strong>Attack Pattern:</strong> <span id="brief-opponent-attack" style="color: #f39c12;">Cavalry Shock Rush</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 25px;">
+      <button id="btn-engage-battle" class="btn-grand-gold">SOUND WAR HORNS & ENGAGE IN TOTAL WAR </button>
+    </div>
+  </div>
+
+  <!-- ==========================================================
+       SCREEN 4: 3D BATTLEVIEW & VISCERAL HUD
+       ========================================================== -->
+  <div id="screen-battle" class="game-screen">
+    <div id="battlefield-canvas-container"></div>
+
+    <!-- Battle Top HUD Bar -->
+    <div class="battle-hud-top">
+      <div class="hud-army-status">
+        <div style="text-align: left;">
+          <div style="color: var(--gold-glow); font-weight: 700; font-size: 0.95rem;"> ALLIED HOST</div>
+          <div id="hud-player-survivors" style="font-size: 0.85rem; color: #fff;">1000 / 1000</div>
+        </div>
+        <div class="hud-hp-bar-bg">
+          <div id="hud-player-hp-bar" class="hud-hp-bar player" style="width: 100%;"></div>
+        </div>
+      </div>
+
+      <div class="hud-center-phase">
+        <div id="hud-phase-badge" class="phase-badge">PHASE 1: ARMIES ADVANCE</div>
+        <div id="hud-battle-timer" style="color: var(--text-muted); font-size: 0.85rem; margin-top: 4px;">00:00</div>
+      </div>
+
+      <div class="hud-army-status" style="justify-content: flex-end;">
+        <div class="hud-hp-bar-bg">
+          <div id="hud-bot-hp-bar" class="hud-hp-bar bot" style="width: 100%;"></div>
+        </div>
+        <div style="text-align: right;">
+          <div style="color: #e0b0ff; font-weight: 700; font-size: 0.95rem;"> OPPOSITION HOST</div>
+          <div id="hud-bot-survivors" style="font-size: 0.85rem; color: #fff;">1000 / 1000</div>
+        </div>
+      </div>
+
+      <div class="hud-controls-right">
+        <button id="btn-speed-toggle" class="btn-mini">1x SPEED</button>
+      </div>
+    </div>
+
+    <!-- Battle Bottom HUD: Orders, Cameras & Event Ticker -->
+    <div class="battle-hud-bottom">
+      <div class="tactical-orders-panel">
+        <div style="font-size: 0.85rem; font-weight: 700; color: var(--gold-glow); border-bottom: 1px solid rgba(212, 175, 55, 0.3); padding-bottom: 4px;">
+          COMMANDER STRATEGIC INTERVENTIONS
+        </div>
+        <div class="tactical-orders-grid">
+          <button id="cmd-cavalry-charge" class="btn-tactical"> Order Cavalry Charge</button>
+          <button id="cmd-reinforce-left" class="btn-tactical"> Reinforce Left Flank</button>
+          <button id="cmd-reinforce-center" class="btn-tactical"> Reinforce Centre</button>
+          <button id="cmd-archer-volley" class="btn-tactical"> Focus Archer Volley</button>
+          <button id="cmd-reform-vyuha" class="btn-tactical"> Reform Vyuha Ranks</button>
+          <button id="cmd-war-cry" class="btn-tactical"> Sacred War Cry</button>
+        </div>
+      </div>
+
+      <div class="camera-view-bar">
+        <button class="btn-cam-view active" data-view="OVERVIEW">OVERVIEW</button>
+        <button class="btn-cam-view" data-view="PLAYER_FORMATION">ALLIED LINES</button>
+        <button class="btn-cam-view" data-view="BOT_FORMATION">ENEMY LINES</button>
+        <button class="btn-cam-view" data-view="LEFT_FLANK">LEFT FLANK</button>
+        <button class="btn-cam-view" data-view="RIGHT_FLANK">RIGHT FLANK</button>
+        <button class="btn-cam-view" data-view="CENTRE">CENTRE</button>
+        <button class="btn-cam-view" data-view="CAVALRY">CAVALRY</button>
+        <button class="btn-cam-view" data-view="ELEPHANTS">ELEPHANTS</button>
+        <button class="btn-cam-view" data-view="CHARIOTS">CHARIOTS</button>
+      </div>
+
+      <div class="battle-ticker-panel">
+        <div style="font-size: 0.82rem; font-weight: 700; color: var(--gold-primary); margin-bottom: 6px;">BATTLEFIELD DISPATCHES</div>
+        <div id="hud-event-ticker">
+          <div class="ticker-item"><span class="ticker-time">[0:00]</span> War horns sound. Both armies march!</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="unit-inspector-modal"></div>
+  </div>
+
+  <!-- ==========================================================
+       SCREEN 6: FINAL RESULT & STRATEGIC ACCURACY SCORECARD
+       ========================================================== -->
+  <div id="screen-result" class="game-screen">
+    <div id="result-outcome-banner" class="result-banner victory">TOTAL ANNIHILATION VICTORY!</div>
+    <p style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 25px;">The battle of Kurukshetra has concluded. The field is held by the sole surviving host.</p>
+
+    <div class="result-grid">
+      <!-- Casualties Comparison Card -->
+      <div class="result-card">
+        <h4 class="cinzel" style="color: var(--gold-glow); margin-bottom: 12px; border-bottom: 1px solid var(--border-gold); padding-bottom: 6px;">SURVIVORS & CASUALTIES</h4>
+        
+        <div style="margin-bottom: 15px;">
+          <h5 style="color: var(--gold-primary);"> ALLIED FORCES</h5>
+          <div class="scorecard-item"><span>Initial Warriors:</span> <strong id="res-p-initial">1000</strong></div>
+          <div class="scorecard-item"><span>Survivors Remaining:</span> <strong id="res-p-survivors" style="color: #2ecc71;">580</strong></div>
+          <div class="scorecard-item"><span>Casualties Taken:</span> <strong id="res-p-casualties" style="color: #e74c3c;">420</strong></div>
+        </div>
+
+        <div>
+          <h5 style="color: #e0b0ff;"> OPPOSITION FORCES</h5>
+          <div class="scorecard-item"><span>Initial Warriors:</span> <strong id="res-b-initial">1000</strong></div>
+          <div class="scorecard-item"><span>Survivors Remaining:</span> <strong id="res-b-survivors" style="color: #e74c3c;">0 (ALL SLAIN)</strong></div>
+          <div class="scorecard-item"><span>Casualties Inflicted:</span> <strong id="res-b-casualties" style="color: #2ecc71;">1000 (100% WIPED OUT)</strong></div>
+        </div>
+      </div>
+
+      <!-- Strategic Vyuha Accuracy Scorecard -->
+      <div class="result-card">
+        <h4 class="cinzel" style="color: var(--gold-glow); margin-bottom: 12px; border-bottom: 1px solid var(--border-gold); padding-bottom: 6px;">VYUHA & STRATEGY EVALUATION</h4>
+
+        <div class="scorecard-item"><span>Vyuha Geometric Accuracy:</span> <strong id="score-vyuha-accuracy">88%</strong></div>
+        <div class="scorecard-item"><span>Attack Pattern Efficiency:</span> <strong id="score-pattern-accuracy">82%</strong></div>
+        <div class="scorecard-item"><span>Army Survival Rate:</span> <strong id="score-army-survival">58%</strong></div>
+        <div class="scorecard-item"><span>Line Penetration & Breach:</span> <strong id="score-line-penetration">100%</strong></div>
+
+        <div class="score-total-box">
+          <span>GRAND STRATEGIC SCORE:</span>
+          <span id="score-total-val">86 / 100</span>
+        </div>
+        <div id="score-rank-title" style="margin-top: 10px; font-weight: 700; color: var(--gold-glow); letter-spacing: 2px;">
+          WARRIOR RANK: ATIRATHI (GRAND MASTER)
+        </div>
+      </div>
+    </div>
+
+    <!-- Replay Actions -->
+    <div class="result-actions">
+      <button id="btn-play-again" class="btn-grand-gold">PLAY AGAIN</button>
+      <button id="btn-rematch" class="btn-grand-gold" style="background: rgba(30, 20, 15, 0.9); color: var(--gold-primary); border: 1px solid var(--border-gold);">REMATCH (SAME FORCES)</button>
+      <button id="btn-change-vyuha" class="btn-grand-gold" style="background: rgba(30, 20, 15, 0.9); color: var(--gold-primary); border: 1px solid var(--border-gold);">CHANGE VYUHA & ATTACK</button>
+    </div>
+  </div>
+
+  <!-- Local Offline Three.js & OrbitControls Scripts -->
+  <script src="assets/three.min.js"></script>
+  <script src="assets/OrbitControls.js"></script>
+
+  <!-- Game Scripts -->
+  <script src="js/characters.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/formations.js"></script>
+  <script src="js/bot_ai.js"></script>
+  <script src="js/simulation.js"></script>
+  <script src="js/renderer.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
